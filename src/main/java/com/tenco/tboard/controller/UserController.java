@@ -55,6 +55,8 @@ public class UserController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getPathInfo();
 		
+		
+		
 		switch (action) {
 		case "/signup": // 회원가입 기능
 			handleSignup(request, response);
@@ -98,8 +100,10 @@ public class UserController extends HttpServlet {
 		
 		User principal =  userRepository.getUserByusernameAndPassword(username, password);
 		if(principal != null && principal.getUsername().equals(principal.getUsername()) && principal.getPassword().equals(principal.getPassword()) ) {
+			
 			HttpSession session = request.getSession();
 			session.setAttribute("principal", principal);
+			
 			// 302(브라우저) => 바로 서블릿 클래스 (BoardController) .. (JSP 내부 이동)
 			System.out.println("로그인 완료");
 			response.sendRedirect(request.getContextPath() + "/board/list");
